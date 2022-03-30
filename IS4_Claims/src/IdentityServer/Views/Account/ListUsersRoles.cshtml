@@ -1,0 +1,47 @@
+﻿@model List<DisplayUserRoleViewModel>
+
+@{
+    ViewBag.Title = "Users Roles";
+}
+<h1>Users' Roles</h1>
+
+<a class="btn btn-primary mb-3" style="width:auto"
+   asp-controller="Account" asp-action="ListRoles">
+    Add Role to user
+</a>
+@if (Model.Any())
+{
+    for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="card mb-3" style="width: 18px">
+            <div class="card-header">
+
+                <h4>Username: </h4>@Model[i].Username 
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Role</h5>
+                    @Model[i].Rolename
+                
+            </div>
+        </div>
+    }
+    
+
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No role against user added yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use the button below to create role against user
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-controller="Account" asp-action="ListRoles">
+                Add new role
+            </a>
+        </div>
+    </div>
+}

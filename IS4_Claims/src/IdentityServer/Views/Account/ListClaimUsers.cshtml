@@ -1,0 +1,43 @@
+﻿@model DisplayUserClaimViewModel
+@{
+    ViewBag.Title = "Users Claims";
+}
+<h1>Users' Claims</h1>
+
+<a class="btn btn-primary mb-3" style="width:auto"
+   asp-controller="Account" asp-action="ListUsers">
+    Add Claim to user
+</a>
+@if (Model.Claims.Count>0)
+{
+        <div class="card mb-3" style="width: 18px">
+            <div class="card-header">
+                <h4>Username: </h4>@Model.Username
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Claims</h5>
+                @foreach(var c in Model.Claims)
+                {
+                    <p>@c</p>
+                }
+
+            </div>
+        </div>   
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            No claim against user added yet
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Use the button below to create claim against user
+            </h5>
+            <a class="btn btn-primary" style="width:auto"
+               asp-controller="Account" asp-action="ListUsers">
+                Add new Claim
+            </a>
+        </div>
+    </div>
+}

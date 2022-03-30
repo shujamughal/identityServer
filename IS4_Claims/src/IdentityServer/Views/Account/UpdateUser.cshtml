@@ -1,0 +1,28 @@
+﻿@model IdentityServer.ViewModels.UpdateUserViewModel
+<h2>Update User</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form method="post" asp-action="UpdateUser">
+    <div class="mb-3 form-group">
+        <label asp-for="Id" class="form-label"></label>
+        <input asp-for="Id" type="text" disabled class="form-control">
+    </div>
+    <div class="mb-3 form-group">
+        <label asp-for="Username" class="form-label"></label>
+        <input asp-for="Username"  class="form-control" id="username">
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="mb-3 form-group">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email"  class="form-control" id="email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3 form-group">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" id="phone">
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a class="btn btn-warning" asp-action="ListUsers">Cancel</a>
+</form>
