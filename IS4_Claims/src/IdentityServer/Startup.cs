@@ -12,6 +12,9 @@ using System;
 using System.Reflection;
 using IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
+using IdentityServer4.EntityFramework.DbContexts;
+using System.Linq;
+using IdentityServer4.EntityFramework.Mappers;
 
 namespace IdentityServer
 {
@@ -25,6 +28,19 @@ namespace IdentityServer
             Configuration = configuration;
             Environment = environment;
         }
+        //Initializing Database
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                context.Database.Migrate();
+                context.Clients.Add(Config.Clients().ToEntity());
+                context.SaveChanges();              
+            }
+        }
+
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,6 +50,11 @@ namespace IdentityServer
             services.AddDbContext<IdentityDbContext>(options =>
              options.UseSqlServer(connString, sql => sql.MigrationsAssembly(migrationAssembly))
              );
+            services.AddDbContext<Data.ConfigurationDbContext>
+                (options => options.UseSqlServer
+                (connString, sql => sql.MigrationsAssembly
+                (migrationAssembly)));
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -82,21 +103,17 @@ namespace IdentityServer
                     policy => policy.RequireClaim("Edit Role"));
             });
 
-            //var builder = services.AddIdentityServer(options =>
-            //{
-            //    // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-            //    options.EmitStaticAudienceClaim = true;
-            //})
-            //    .AddInMemoryIdentityResources(Config.IdentityResources)
-            //    .AddInMemoryApiScopes(Config.ApiScopes)
-            //    .AddInMemoryClients(Config.Clients);
-
+           
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
         }
 
         public void Configure(IApplicationBuilder app)
         {
+            // this will do the initial DB population
+            //InitializeDatabase(app);
+
+
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

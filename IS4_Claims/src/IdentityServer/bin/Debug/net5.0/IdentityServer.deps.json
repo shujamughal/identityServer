@@ -28,6 +28,7 @@
           "IdentityServer4": "4.1.2",
           "IdentityServer4.AspNetIdentity": "4.1.2",
           "IdentityServer4.EntityFramework": "4.1.2",
+          "IdentityServer4.EntityFramework.Storage": "4.1.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.12",
           "Microsoft.AspNetCore.Identity.UI": "5.0.12",
           "Microsoft.EntityFrameworkCore.Relational": "5.0.12",

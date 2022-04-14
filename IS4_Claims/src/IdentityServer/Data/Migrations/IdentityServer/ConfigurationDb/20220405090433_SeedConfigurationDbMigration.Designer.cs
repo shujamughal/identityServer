@@ -4,14 +4,16 @@ using IdentityServer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
-    partial class ConfigurationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220405090433_SeedConfigurationDbMigration")]
+    partial class SeedConfigurationDbMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,18 +69,6 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                         .IsUnique();
 
                     b.ToTable("ApiResources");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 422, DateTimeKind.Utc).AddTicks(4857),
-                            DisplayName = "My Web API",
-                            Enabled = true,
-                            Name = "web_api",
-                            NonEditable = false,
-                            ShowInDiscoveryDocument = true
-                        });
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceClaim", b =>
@@ -150,14 +140,6 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                     b.HasIndex("ApiResourceId");
 
                     b.ToTable("ApiResourceScopes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 11,
-                            ApiResourceId = 1,
-                            Scope = "web_api_read"
-                        });
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiResourceSecret", b =>
@@ -235,28 +217,6 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                         .IsUnique();
 
                     b.ToTable("ApiScopes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DisplayName = "Web Api Read",
-                            Emphasize = false,
-                            Enabled = true,
-                            Name = "web_api_read",
-                            Required = false,
-                            ShowInDiscoveryDocument = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DisplayName = "Web Api write",
-                            Emphasize = false,
-                            Enabled = true,
-                            Name = "web_api_write",
-                            Required = false,
-                            ShowInDiscoveryDocument = true
-                        });
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.ApiScopeClaim", b =>
@@ -483,7 +443,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                             ClientClaimsPrefix = "client_",
                             ClientId = "client",
                             ClientName = "Client",
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 425, DateTimeKind.Utc).AddTicks(7032),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 131, DateTimeKind.Utc).AddTicks(6232),
                             Description = "JS client",
                             DeviceCodeLifetime = 300,
                             EnableLocalLogin = true,
@@ -519,7 +479,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                             ClientClaimsPrefix = "client_",
                             ClientId = "ro.client",
                             ClientName = "RO",
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 426, DateTimeKind.Utc).AddTicks(565),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 131, DateTimeKind.Utc).AddTicks(9968),
                             Description = "Ro client",
                             DeviceCodeLifetime = 300,
                             EnableLocalLogin = true,
@@ -555,7 +515,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                             ClientClaimsPrefix = "client_",
                             ClientId = "mvc",
                             ClientName = "MVC Client",
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 426, DateTimeKind.Utc).AddTicks(573),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 131, DateTimeKind.Utc).AddTicks(9976),
                             DeviceCodeLifetime = 300,
                             EnableLocalLogin = true,
                             Enabled = true,
@@ -590,7 +550,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                             ClientClaimsPrefix = "client_",
                             ClientId = "js",
                             ClientName = "JavaScript client",
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 426, DateTimeKind.Utc).AddTicks(1272),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 132, DateTimeKind.Utc).AddTicks(909),
                             DeviceCodeLifetime = 300,
                             EnableLocalLogin = true,
                             Enabled = true,
@@ -949,7 +909,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                         {
                             Id = 1,
                             ClientId = 1,
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 426, DateTimeKind.Utc).AddTicks(7097),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 135, DateTimeKind.Utc).AddTicks(1189),
                             Type = "SharedSecret",
                             Value = "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols="
                         },
@@ -957,7 +917,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                         {
                             Id = 2,
                             ClientId = 2,
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 431, DateTimeKind.Utc).AddTicks(648),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 143, DateTimeKind.Utc).AddTicks(4779),
                             Type = "SharedSecret",
                             Value = "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols="
                         },
@@ -965,7 +925,7 @@ namespace IdentityServer.Data.Migrations.IdentityServer.ConfigurationDb
                         {
                             Id = 3,
                             ClientId = 3,
-                            Created = new DateTime(2022, 4, 13, 9, 30, 8, 431, DateTimeKind.Utc).AddTicks(1189),
+                            Created = new DateTime(2022, 4, 5, 9, 4, 32, 143, DateTimeKind.Utc).AddTicks(5934),
                             Type = "SharedSecret",
                             Value = "K7gNU3sdo+OL0wNhqoVWhr3g6s1xYv72ol/pe/Unols="
                         });

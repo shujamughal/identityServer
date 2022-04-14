@@ -474,3 +474,6 @@ Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\IdentityServer.
 Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\ref\IdentityServer.dll
 Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\IdentityServer.pdb
 Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\IdentityServer.genruntimeconfig.cache
+Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\Razor\Views\Client\Index.cshtml.g.cs
+Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\Razor\Views\Client\Register.cshtml.g.cs
+Z:\identityServer\IS4_Claims\src\IdentityServer\obj\Debug\net5.0\Razor\Views\Account\RegisterClient.cshtml.g.cs

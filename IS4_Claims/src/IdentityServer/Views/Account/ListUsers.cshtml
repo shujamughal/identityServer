@@ -18,8 +18,16 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                   @user.UserName
+                    @user.UserName
                 </h5>
+                @if (user.Degree != null)
+                {
+                    string[] u = user.Degree.Split('!');
+                    foreach (string i in u)
+                    {
+                        <p><b>Degrees:</b> @i</p>
+                    }
+                }
                 <form asp-action="DeleteUsers" asp-route-id="@user.Id" method="post">
                     <div class="card-footer">
                         <a asp-action="UpdateUser" asp-route-id="@user.Id"

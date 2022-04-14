@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xrCmcA7s1ovbHHDmx6I2JklUha+I1SDvYRciwxz3saOtYLITnCWxbDlr9827DBli5Lr2/GU6wqV7tVnxOhfEjg==",
+  "dgSpecHash": "UKce3MbVwxyPjDlPFGcmxeXV7WkFHBW9k5jBvMd+/qN2dMHE8m8JsGo6b8kuDLcz07bmB/Bt1jKYuMByYTdYxw==",
   "success": true,
   "projectFilePath": "Z:\\identityServer\\IS4_Claims\\src\\IdentityServer\\IdentityServer.csproj",
   "expectedPackageFiles": [

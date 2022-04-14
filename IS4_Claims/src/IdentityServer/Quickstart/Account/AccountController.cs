@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using IdentityServer.ViewModels;
 using System.Security.Claims;
 using System.Collections.Generic;
+using IdentityServer4.EntityFramework.Interfaces;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -37,11 +38,11 @@ namespace IdentityServerHost.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
-        
+        private readonly IConfigurationDbContext configurationDbContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        
+       
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -50,11 +51,13 @@ namespace IdentityServerHost.Quickstart.UI
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IConfigurationDbContext _configurationDbContext)
         {
              _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            configurationDbContext = _configurationDbContext;
 
             _interaction = interaction;
             _clientStore = clientStore;
@@ -69,14 +72,49 @@ namespace IdentityServerHost.Quickstart.UI
         [HttpGet]
         public IActionResult Index()
         {
+
+            //var c = new IdentityServer4.EntityFramework.Entities.Client 
+            //{
+            //    ClientId = "zayyad"
+            //};
+            //configurationDbContext.Clients.Add(c);
+            
             return View();
         }
+
+        [HttpGet]
+        public IActionResult RegisterClient()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult RegisterClient(RegisterClientViewModel c)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityServer.Config.SetClients(c);
+            }
+            return View();
+        }
+
+
 
         [HttpGet]
         [Authorize(Roles = "admin,hr")]
         public IActionResult Register()
         {
-            return View();
+            RegisterViewModel vm = new RegisterViewModel();
+
+            foreach (var d in vm.Degrees)
+            {
+                UserDegree userDegree = new UserDegree
+                {
+                    Degree = d,
+                    IsSelected = false
+                };
+                vm.UDegree.Add(userDegree);
+            }
+            return View(vm);
         }
 
         [HttpPost]
@@ -85,6 +123,22 @@ namespace IdentityServerHost.Quickstart.UI
         {
             if (ModelState.IsValid)
             {
+                string d="";
+                for (int i =0;i<model.UDegree.Count;i++)
+                {
+                    if (model.UDegree[i].IsSelected)
+                    {
+                        if (i == model.UDegree.Count - 1)
+                        {
+                            d += model.UDegree[i].Degree;
+                        }
+                        else
+                        {
+                            d += model.UDegree[i].Degree + "!";
+                        }
+                    }
+                }
+                
                 var user = new ApplicationUser
                 {
                     UserName = model.Username,
@@ -92,7 +146,9 @@ namespace IdentityServerHost.Quickstart.UI
                     PhoneNumber = model.Phone,
                     PhoneNumberConfirmed = true,
                     EmailConfirmed = true,
-                    LockoutEnabled = false
+                    LockoutEnabled = false,
+                    Gender=model.Gender,
+                    Degree=d
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 
@@ -114,6 +170,8 @@ namespace IdentityServerHost.Quickstart.UI
         }
 
         [HttpGet]
+        [Authorize (Roles="admin")]
+        [Authorize(Roles = "hr")]
         public IActionResult ListUsers()
         {
             var users = _userManager.Users;
@@ -198,14 +256,16 @@ namespace IdentityServerHost.Quickstart.UI
  
         //Roles
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Policy = "CreateRolePolicy")]
+        [Authorize(Policy = "EditRolePolicy")]
         public IActionResult AddRole()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Policy = "CreateRolePolicy")]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> AddRole(RoleViewModel model)
         {
             if (ModelState.IsValid)

@@ -8,6 +8,8 @@ namespace IdentityServer.Models
 {
     public class ApplicationUser: IdentityUser
     {
+        public string Gender { get; set; }
+        public string Degree { get; set; }
 
     }
 }

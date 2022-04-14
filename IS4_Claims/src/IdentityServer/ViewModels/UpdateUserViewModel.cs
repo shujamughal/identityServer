@@ -8,6 +8,7 @@ namespace IdentityServer.ViewModels
 {
     public class UpdateUserViewModel
     {
+       
         public string Id { get; set; }
         [Required]
         public string Username { get; set; }
@@ -15,7 +16,7 @@ namespace IdentityServer.ViewModels
         [EmailAddress]
         public string Email { get; set; }
         public string Phone { get; set; }
-
+        
 
     }
 }
